@@ -6,7 +6,7 @@ import ButtonDarkMode from '../darkmode/ButtonDarkMode'
 
 export default function Header() {
   return (
-    <Box as='header' pos={'sticky'} top={0}  boxShadow={'sm'}>
+    <Box as='header' pos={'sticky'} top={0}  boxShadow={'sm'} zIndex={100000} bg={'white'} _dark={{bg:'gray.900'}}>
         <Flex as='nav' align={'center'} paddingInline={5} height={'60px'}>
             <Text as={'h1'} fontSize={'xl'} fontWeight={700}>ERPyntic</Text>
             <Spacer/>
