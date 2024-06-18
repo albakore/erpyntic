@@ -36,12 +36,14 @@ type PropsAtributoContext = {
   atributos: AtributoData[],
   borrarAtributo: (e: BaseSyntheticEvent) => any | Promise<any>,
   crearAtributo: (e: BaseSyntheticEvent) => any | Promise<any>,
+  modificarAtributo: (e: BaseSyntheticEvent, attIndex: number) => any | Promise<any>,
 }
 
 const atributosStore = React.createContext<PropsAtributoContext>({
   atributos: [],
   borrarAtributo: (e) => { },
   crearAtributo: (e) => { },
+  modificarAtributo: (e) => { },
 })
 
 function useAtributos(): PropsAtributoContext {
@@ -53,20 +55,29 @@ function useAtributos(): PropsAtributoContext {
 export default function CrearPage() {
   const [atributos, setAtributos] = React.useState([])
 
-  const borrarAtributo = (indice) => {
-    console.log(indice)
-    setAtributos(atributos.filter((item, index) => index != indice))
-  }
   const crearAtributo = (e: BaseSyntheticEvent) => {
     e.preventDefault()
     const formulario = new FormData(e.target)
     const objeto = Object.fromEntries(formulario.entries())
-    console.log(JSON.stringify(objeto, null, 2))
     setAtributos([...atributos, objeto])
   }
 
+  const modificarAtributo = (e: BaseSyntheticEvent, attIndex: number) => {
+    e.preventDefault()
+    const formulario = new FormData(e.target)
+    const objeto = Object.fromEntries(formulario.entries())
+    let nueva_lista = [...atributos]
+    nueva_lista[attIndex] = objeto
+    setAtributos(nueva_lista)
+  }
+  
+  const borrarAtributo = (indice) => {
+    console.log(indice)
+    setAtributos(atributos.filter((item, index) => index != indice))
+  }
+
   return (
-    <atributosStore.Provider value={{ atributos, crearAtributo, borrarAtributo }}>
+    <atributosStore.Provider value={{ atributos, crearAtributo, borrarAtributo,modificarAtributo }}>
       <Container maxW={'6xl'}>
         <Text as='h1' fontSize={'3xl'}>Crear Entidad</Text>
         <p>Esto creara una nueva <b>entidad</b> en la base de datos.</p>
@@ -145,7 +156,7 @@ function NuevoAtributo({ data, arrayIndex }: { data: AtributoData, arrayIndex: n
       <Td p={0}>{data.categoria}</Td>
       <Td p={0} w={'100px'}>
       <ButtonGroup variant={'ghost'} spacing='2'>
-        <ButtonModificarAtributo />
+        <ButtonModificarAtributo dataAtributo={data} indexAtributo={arrayIndex}/>
         <ButtonBorrarAtributo indexItem={arrayIndex} />
       </ButtonGroup>
       </Td>
@@ -187,12 +198,12 @@ function ButtonCrearAtributo() {
   )
 }
 
-function ButtonModificarAtributo() {
+function ButtonModificarAtributo({dataAtributo,indexAtributo}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  // const {crearAtributo} = useAtributos()
+  const {modificarAtributo} = useAtributos()
 
-  const handleForm = async (e: BaseSyntheticEvent) => {
-    // crearAtributo(e)
+  const handleForm = async (e: BaseSyntheticEvent,indiceAtributo) => {
+    modificarAtributo(e, indiceAtributo)
     onClose()
   }
 
@@ -206,14 +217,14 @@ function ButtonModificarAtributo() {
           <ModalHeader>Modificar atributo</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormAtributo accion={handleForm} />
+            <FormAtributo data={dataAtributo} accion={(e) => handleForm(e,indexAtributo)} />
           </ModalBody>
 
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>
               Cerrar
             </Button>
-            <Button variant='ghost' type='submit' form='creacion_att_form'>Crear</Button>
+            <Button variant='ghost' type='submit' form='creacion_att_form'>Editar</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -248,7 +259,7 @@ function FormAtributo({ data, accion }: TypeFormAtributo) {
         <FormControl>
           <FormLabel fontSize={'sm'} m={0}>Descripcion</FormLabel>
           <small>Es el que se mostrara al consultar la informacion</small>
-          <Input size={'sm'} defaultValue={data?.nombre} name='descripcion' />
+          <Input size={'sm'} defaultValue={data?.descripcion} name='descripcion' />
         </FormControl>
 
         <FormControl>
