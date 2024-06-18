@@ -9,7 +9,7 @@
         "id": 2,
         "categoria": "RRHH",
         "nombre": "Vacante",
-        "generada": true
+        "generada": false
     },
     {
         "id": 3,
