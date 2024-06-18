@@ -1,5 +1,5 @@
 'use client'
-import { Box, Button, ButtonGroup, Container, FormControl, FormLabel, HStack, IconButton, Input, Select, Spacer, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, ButtonGroup, Container, Flex, FormControl, FormLabel, HStack, IconButton, Input, Select, Spacer, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import {
   Table,
   Thead,
@@ -70,43 +70,50 @@ export default function CrearPage() {
     nueva_lista[attIndex] = objeto
     setAtributos(nueva_lista)
   }
-  
+
   const borrarAtributo = (indice) => {
     console.log(indice)
     setAtributos(atributos.filter((item, index) => index != indice))
   }
 
   return (
-    <atributosStore.Provider value={{ atributos, crearAtributo, borrarAtributo,modificarAtributo }}>
+    <atributosStore.Provider value={{ atributos, crearAtributo, borrarAtributo, modificarAtributo }}>
       <Container maxW={'6xl'}>
-        <Text as='h1' fontSize={'3xl'}>Crear Entidad</Text>
-        <p>Esto creara una nueva <b>entidad</b> en la base de datos.</p>
+        <Box>
+          <Text as='h1' fontSize={'3xl'}>Crear Entidad</Text>
+          <p>Esto creara una nueva <b>entidad</b> en la base de datos.</p>
+        </Box>
 
-        <form action="">
-          <VStack mt={4} width={'300px'}>
-            <FormControl>
-              <FormLabel fontSize={'sm'} m={0}>Nombre descriptivo</FormLabel>
-              <Input size={'sm'} />
-            </FormControl>
+        <Flex gap={5} w={'full'} mt={5}>
+          <Flex direction={'column'} gap={2}>
+            <Text as='h3' fontSize={'xl'}>General</Text>
+            <form action="">
+              <VStack width={'300px'}>
+                <FormControl>
+                  <FormLabel fontSize={'sm'} m={0}>Nombre descriptivo</FormLabel>
+                  <Input size={'sm'} borderRadius={'md'} />
+                </FormControl>
 
-            <FormControl>
-              <FormLabel fontSize={'sm'} m={0}>Nombre de tabla</FormLabel>
-              <Input size={'sm'} />
-            </FormControl>
+                <FormControl>
+                  <FormLabel fontSize={'sm'} m={0}>Nombre de tabla</FormLabel>
+                  <Input size={'sm'} borderRadius={'md'} />
+                </FormControl>
 
-            <FormControl>
-              <FormLabel fontSize={'sm'} m={0}>Prefijo</FormLabel>
-              <Input size={'sm'} />
-            </FormControl>
+                <FormControl>
+                  <FormLabel fontSize={'sm'} m={0}>Prefijo</FormLabel>
+                  <Input size={'sm'} borderRadius={'md'} />
+                </FormControl>
 
-            <FormControl>
-              <FormLabel fontSize={'sm'} m={0}>Categoria</FormLabel>
-              <Input size={'sm'} />
-            </FormControl>
-          </VStack>
-        </form>
+                <FormControl>
+                  <FormLabel fontSize={'sm'} m={0}>Categoria</FormLabel>
+                  <Input size={'sm'} borderRadius={'md'} />
+                </FormControl>
+              </VStack>
+            </form>
+          </Flex>
+          <TablaCreacionAtributos />
+        </Flex>
 
-        <TablaCreacionAtributos />
       </Container>
     </atributosStore.Provider>
   )
@@ -118,8 +125,8 @@ function TablaCreacionAtributos() {
 
 
   return (
-    <TableContainer mt={5}>
-      <HStack>
+    <TableContainer w={'inherit'}>
+      <HStack mb={1}>
         <Text as='h3' fontSize={'xl'}>Atributos</Text>
         <Spacer />
         <ButtonCrearAtributo />
@@ -155,10 +162,10 @@ function NuevoAtributo({ data, arrayIndex }: { data: AtributoData, arrayIndex: n
       <Td p={0}>{data.tipo}</Td>
       <Td p={0}>{data.categoria}</Td>
       <Td p={0} w={'100px'}>
-      <ButtonGroup variant={'ghost'} spacing='2'>
-        <ButtonModificarAtributo dataAtributo={data} indexAtributo={arrayIndex}/>
-        <ButtonBorrarAtributo indexItem={arrayIndex} />
-      </ButtonGroup>
+        <ButtonGroup variant={'ghost'} spacing='2'>
+          <ButtonModificarAtributo dataAtributo={data} indexAtributo={arrayIndex} />
+          <ButtonBorrarAtributo indexItem={arrayIndex} />
+        </ButtonGroup>
       </Td>
     </Tr>
   )
@@ -198,11 +205,11 @@ function ButtonCrearAtributo() {
   )
 }
 
-function ButtonModificarAtributo({dataAtributo,indexAtributo}) {
+function ButtonModificarAtributo({ dataAtributo, indexAtributo }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const {modificarAtributo} = useAtributos()
+  const { modificarAtributo } = useAtributos()
 
-  const handleForm = async (e: BaseSyntheticEvent,indiceAtributo) => {
+  const handleForm = async (e: BaseSyntheticEvent, indiceAtributo) => {
     modificarAtributo(e, indiceAtributo)
     onClose()
   }
@@ -217,7 +224,7 @@ function ButtonModificarAtributo({dataAtributo,indexAtributo}) {
           <ModalHeader>Modificar atributo</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormAtributo data={dataAtributo} accion={(e) => handleForm(e,indexAtributo)} />
+            <FormAtributo data={dataAtributo} accion={(e) => handleForm(e, indexAtributo)} />
           </ModalBody>
 
           <ModalFooter>
