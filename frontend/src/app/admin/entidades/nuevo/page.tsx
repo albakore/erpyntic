@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function page() {
   return (
-    <Box p={5}>
+    <Box p={5} w={'full'}>
         <CrearPage/>
     </Box>
   )

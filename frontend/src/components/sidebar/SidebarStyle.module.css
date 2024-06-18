@@ -1,0 +1,7 @@
+.sidebarItem:hover .IconChevronRight_sidebar {
+    visibility: visible;
+}
+
+.IconChevronRight_sidebar {
+    visibility: hidden;
+}

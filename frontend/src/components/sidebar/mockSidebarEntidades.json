@@ -1,0 +1,105 @@
+[
+    {
+        "id": 1,
+        "categoria": "RRHH",
+        "nombre": "Empleado",
+        "generada": true
+    },
+    {
+        "id": 2,
+        "categoria": "RRHH",
+        "nombre": "Vacante",
+        "generada": true
+    },
+    {
+        "id": 3,
+        "categoria": "RRHH",
+        "nombre": "Vacaciones",
+        "generada": true
+    },
+    {
+        "id": 4,
+        "categoria": "Contabilidad",
+        "nombre": "Asiento",
+        "generada": true
+    },
+    {
+        "id": 5,
+        "categoria": "Contabilidad",
+        "nombre": "Cuenta contable",
+        "generada": true
+    },
+    {
+        "id": 1,
+        "categoria": "RRHH",
+        "nombre": "Empleado",
+        "generada": true
+    },
+    {
+        "id": 2,
+        "categoria": "RRHH",
+        "nombre": "Vacante",
+        "generada": true
+    },
+    {
+        "id": 3,
+        "categoria": "RRHH",
+        "nombre": "Vacaciones",
+        "generada": true
+    },
+    {
+        "id": 4,
+        "categoria": "Contabilidad",
+        "nombre": "Asiento",
+        "generada": true
+    },
+    {
+        "id": 2,
+        "categoria": "RRHH",
+        "nombre": "Vacante",
+        "generada": true
+    },
+    {
+        "id": 3,
+        "categoria": "RRHH",
+        "nombre": "Vacaciones",
+        "generada": true
+    },
+    {
+        "id": 4,
+        "categoria": "Contabilidad",
+        "nombre": "Asiento",
+        "generada": true
+    },
+    {
+        "id": 5,
+        "categoria": "Contabilidad",
+        "nombre": "Cuenta contable",
+        "generada": true
+    },
+    {
+        "id": 1,
+        "categoria": "RRHH",
+        "nombre": "Empleado",
+        "generada": true
+    },
+    {
+        "id": 2,
+        "categoria": "RRHH",
+        "nombre": "Vacante",
+        "generada": true
+    },
+    {
+        "id": 3,
+        "categoria": "RRHH",
+        "nombre": "Vacaciones",
+        "generada": true
+    },
+    {
+        "id": 4,
+        "categoria": "Contabilidad",
+        "nombre": "Asiento",
+        "generada": true
+    }
+
+]
